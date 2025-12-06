@@ -1,0 +1,59 @@
+#include "helpers.h"
+
+void removeOuterParentheses(char *expr) {
+    int len = strlen(expr);
+    
+    while (len > 2 && expr[0] == '(' && expr[len-1] == ')') {
+        int level = 0;
+        bool isOuter = true;
+        
+        for (int i = 0; i < len - 1; i++) {
+            if (expr[i] == '(') level++;
+            if (expr[i] == ')') level--;
+            if (level == 0) {
+                isOuter = false;
+                break;
+            }
+        }
+        
+        if (isOuter) {
+            memmove(expr, expr + 1, len - 2);
+            expr[len - 2] = '\0';
+            len = strlen(expr);
+        } else {
+            break;
+        }
+    }
+}
+
+
+int findMainOperator(const char *exp) {
+    int parenthesisLevel = 0;
+    int positionOfPlusOrMinus = -1;
+    int positionOfMulOrDiv = -1;
+    
+    for(size_t i = 0; i < strlen(exp); i++) {
+        if(exp[i] == ' ') continue;  // Skip spaces!
+        
+        if(exp[i] == '(') {
+            parenthesisLevel++;
+        } else if(exp[i] == ')') {
+            parenthesisLevel--;
+        }
+        else if(exp[i] == '+' || exp[i] == '-') {
+            if(parenthesisLevel == 0) {
+                positionOfPlusOrMinus = i;
+            }
+        }
+        else if(exp[i] == '*' || exp[i] == '/') {
+            if(parenthesisLevel == 0) {
+                positionOfMulOrDiv = i;
+            }
+        }
+    }
+    
+    if(positionOfPlusOrMinus != -1) {
+        return positionOfPlusOrMinus;
+    }
+    return positionOfMulOrDiv;
+}
