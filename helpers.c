@@ -1,8 +1,18 @@
 #include "helpers.h"
 
-void removeOuterParentheses(char *expr) {
-    int len = strlen(expr);
+void removeSpacesAndOuterParentheses(char *expr) {
+    // FIRST: Remove all spaces
+    int i = 0, j = 0;
+    while (expr[i]) {
+        if (expr[i] != ' ') {
+            expr[j++] = expr[i];
+        }
+        i++;
+    }
+    expr[j] = '\0';
     
+    // THEN: Remove outer parentheses
+    int len = strlen(expr);
     while (len > 2 && expr[0] == '(' && expr[len-1] == ')') {
         int level = 0;
         bool isOuter = true;

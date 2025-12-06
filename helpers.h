@@ -4,6 +4,6 @@
 #include <stdbool.h>
 
 int findMainOperator(const char *exp);
-void removeOuterParentheses(char *expr);
+void removeSpacesAndOuterParentheses(char *expr);
 
 #endif // HELPERS_H
