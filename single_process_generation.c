@@ -5,7 +5,6 @@
 #include "helpers.h"
 
 int taskCounter = 0;
-int memoryCounter = 0;
 
 char *generates( char *expr, int parenTaskId)
 {
@@ -34,7 +33,7 @@ char *generates( char *expr, int parenTaskId)
     char *rightResult = generates(rightExpr, myTaskId);
 
     char resultMemory[10];
-    sprintf(resultMemory, "M%d", ++memoryCounter);
+    sprintf(resultMemory, "M%d", myTaskId);
     printf("T%d : %s := %s %c %s\n",
            myTaskId, resultMemory, leftResult, operator, rightResult);
 
@@ -50,7 +49,7 @@ char *generates( char *expr, int parenTaskId)
 
 int main()
 {
-    char test[100] = "(( A + B) * (C - (D / E))) ";
+    char test[100] = "(((A+B)*C)-(((D-(F/G))*(H+(K*L)))/((M-N)*O)))";
 
     if (validateExpression(test))
     {

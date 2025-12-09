@@ -8,7 +8,6 @@ bool validateExpression(const char *expression)
     {
         return false; // for if the string is empty
     }
-    bool isParenthesisEmpty = true;
     int parenthesisCount = 0;
     bool expectedOperand = true;
     size_t length = strlen(expression);

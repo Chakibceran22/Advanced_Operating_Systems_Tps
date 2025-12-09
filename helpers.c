@@ -39,8 +39,7 @@ void removeSpacesAndOuterParentheses(char *expr) {
 
 int findMainOperator(const char *exp) {
     int parenthesisLevel = 0;
-    int positionOfPlusOrMinus = -1;
-    int positionOfMulOrDiv = -1;
+    int positionOperator = -1;
     
     for(size_t i = 0; i < strlen(exp); i++) {
         if(exp[i] == ' ') continue;  // Skip spaces!
@@ -50,20 +49,13 @@ int findMainOperator(const char *exp) {
         } else if(exp[i] == ')') {
             parenthesisLevel--;
         }
-        else if(exp[i] == '+' || exp[i] == '-') {
+        else if( exp[i] == '+' || exp[i] == '-' || exp[i] == '*' || exp[i] == '/') {
             if(parenthesisLevel == 0) {
-                positionOfPlusOrMinus = i;
-            }
-        }
-        else if(exp[i] == '*' || exp[i] == '/') {
-            if(parenthesisLevel == 0) {
-                positionOfMulOrDiv = i;
+                positionOperator = i;
+                break;
             }
         }
     }
     
-    if(positionOfPlusOrMinus != -1) {
-        return positionOfPlusOrMinus;
-    }
-    return positionOfMulOrDiv;
+    return positionOperator;
 }
